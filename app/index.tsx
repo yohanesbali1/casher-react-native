@@ -1,12 +1,25 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import AppBar from './app.bar';
 import Product from './product';
+import Sidebar from './sidebar';
 
 export default function Main() {
+
+    const data_checkout = [
+        {
+            id: 1,
+            name: "Nasi Goreng Spesial",
+            image: "https://example.com/images/nasi-goreng-spesial.jpg",
+            price: 25000
+        }]
     return (
         <>
             <AppBar />
-            <Product />
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Product />
+                <Sidebar data_checkout={data_checkout} />
+            </View>
         </>
     );
 }
