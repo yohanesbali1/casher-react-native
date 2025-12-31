@@ -1,4 +1,5 @@
 import { FlatList, View } from "react-native";
+import GroupProduct from "./group";
 import ItemProduct from "./item";
 
 
@@ -38,22 +39,23 @@ export default function Product() {
 
         {
             id: 4,
-            name: "Nasi Ayam Geprek",
+            name: "Air Mineral",
             image: "https://example.com/images/ayam-geprek.jpg",
-            price: 23000
+            price: 5000
         },
         {
             id: 5,
-            name: "Nasi Goreng Seafood",
+            name: "Es Teh Manis",
             image: "https://example.com/images/nasi-goreng-seafood.jpg",
-            price: 30000
+            price: 5000
         }
     ];
 
 
     return (
         <>
-            <View>
+            <View style={{ backgroundColor: '#F6F7F8' }}>
+                <GroupProduct />
                 <FlatList
                     data={products}
                     numColumns={5}
