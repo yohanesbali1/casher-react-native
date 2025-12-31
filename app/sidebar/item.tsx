@@ -17,11 +17,11 @@ export default function ItemSidebar(payload: any) {
                             <Text variant="bodyMedium" style={{ textAlign: 'left', fontFamily: 'Opensans-Bold' }} >{item.name}</Text>
                             <Text variant="bodyMedium" style={{ textAlign: 'left', color: '#66788F', fontFamily: 'Opensans-regular' }}>Rp {item.price}</Text>
                         </View>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center' }}>
                             <Pressable style={{ backgroundColor: '#F1F5F9', width: 28, height: 28, justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
                                 <Icon source={'minus'} size={15} color="#0079EB"></Icon>
                             </Pressable>
-                            <Text variant="bodyMedium" style={{ textAlign: 'center', fontFamily: 'Opensans-Bold' }}>1</Text>
+                            <Text variant="bodyMedium" style={{ textAlign: 'center', fontFamily: 'Opensans-Bold', alignSelf: 'center', alignItems: 'center' }}>1</Text>
                             <Pressable style={{ backgroundColor: '#0079EB', width: 28, height: 28, justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
                                 <Icon source={'plus'} size={15} color="white"></Icon>
                             </Pressable>

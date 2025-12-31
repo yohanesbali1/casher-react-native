@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import AppBar from './app.bar';
-import Product from './product';
+import ProductComp from './product';
 import Sidebar from './sidebar';
 
 export default function Main() {
@@ -17,7 +17,7 @@ export default function Main() {
         <>
             <AppBar />
             <View style={{ flex: 1, flexDirection: 'row' }}>
-                <Product />
+                <ProductComp />
                 <Sidebar data_checkout={data_checkout} />
             </View>
         </>

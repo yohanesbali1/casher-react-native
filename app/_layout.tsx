@@ -1,3 +1,5 @@
+import { migrate } from '@/db/migration';
+import { seedIfEmpty } from '@/db/seed';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
@@ -19,6 +21,14 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
+  useEffect(() => {
+    (async () => {
+      await migrate();
+      await seedIfEmpty();
+    })();
+  }, []);
+
 
   if (!loaded && !error) {
     return null;
