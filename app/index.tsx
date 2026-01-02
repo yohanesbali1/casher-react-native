@@ -16,8 +16,10 @@ export default function Main() {
     return (
         <>
             <AppBar />
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-                <ProductComp />
+            <View style={{ flex: 1, flexDirection: "row", alignItems: "stretch" }}>
+                <View style={{ flex: 1 }}>
+                    <ProductComp />
+                </View>
                 <Sidebar data_checkout={data_checkout} />
             </View>
         </>

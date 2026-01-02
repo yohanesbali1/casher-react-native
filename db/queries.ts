@@ -1,7 +1,7 @@
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+import * as Crypto from "expo-crypto";
 import { db } from "./database";
 import { Product } from "./types";
+const id = Crypto.randomUUID();
 
 /* =====================
    PRODUCTS
@@ -11,7 +11,19 @@ export const getProducts = async (
     offset = 0
 ): Promise<Product[]> => {
     return await db.getAllAsync<Product>(
-        "SELECT * FROM products LIMIT ? OFFSET ?",
+        `
+    SELECT
+      products.id   AS product_id,
+      products.name AS product_name,
+      products.price,
+      products.stock,
+      categories.id   AS category_id,
+      categories.name AS category_name
+    FROM products
+    INNER JOIN categories
+      ON products.category_id = categories.id
+    LIMIT ? OFFSET ?
+    `,
         [limit, offset]
     );
 };
@@ -27,7 +39,7 @@ export const createTransaction = async (
         qty: number;
     }[]
 ) => {
-    const trxId = uuidv4();
+    const trxId = id;
     const trxNumber = `TRX-${Date.now()}`;
     const total = items.reduce(
         (s, i) => s + i.price * i.qty,

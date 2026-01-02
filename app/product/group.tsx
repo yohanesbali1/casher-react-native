@@ -10,7 +10,7 @@ export function ItemGroup(payload: any) {
                     flexDirection: 'row', gap: 6, backgroundColor: '#F1F5F9', paddingVertical: 5, paddingHorizontal: 16, borderRadius: 8, marginEnd: 10
                 }}>
                     <Icon source={item.icon} size={20} color="#334155" />
-                    <Text variant="bodyMedium" style={{ fontFamily: 'Opensans-SemiBold', color: '#334155' }}>{item.title}</Text>
+                    <Text style={{ fontFamily: 'Opensans-Medium', color: '#334155', fontSize: 14 }}>{item.title}</Text>
                 </View >
             </Pressable >
         </>
@@ -34,7 +34,7 @@ export default function GroupProduct() {
     }]
     return (
         <>
-            <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', paddingHorizontal: 16, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#E0E0E0' }}>
+            <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', paddingHorizontal: 14, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' }}>
                 <ScrollView horizontal >
                     {group.map((item: any) => (
                         <ItemGroup key={item.id} item={item} />

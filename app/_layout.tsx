@@ -9,6 +9,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
+    'Opensans-ExtraBold': require('../assets/fonts/OpenSans-ExtraBold.ttf'),
     'Opensans-Bold': require('../assets/fonts/OpenSans-Bold.ttf'),
     'Opensans-SemiBold': require('../assets/fonts/OpenSans-SemiBold.ttf'),
     'Opensans-Medium': require('../assets/fonts/OpenSans-Medium.ttf'),
@@ -28,7 +29,6 @@ export default function RootLayout() {
       await seedIfEmpty();
     })();
   }, []);
-
 
   if (!loaded && !error) {
     return null;

@@ -4,11 +4,12 @@ export interface Category {
 }
 
 export interface Product {
-    id: string;
-    name: string;
+    product_id: string;
+    product_name: string;
     price: number;
     stock: number;
     category_id: string;
+    category_name: string;
 }
 
 export interface Transaction {
