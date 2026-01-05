@@ -8,6 +8,7 @@ export const useCart = () => {
     const postCart = useStore(cartStore, s => s.postCart);
     const updateCart = useStore(cartStore, s => s.updateCart);
     const resetCart = useStore(cartStore, s => s.resetCart);
+    const deleteCart = useStore(cartStore, s => s.deleteCart);
 
     const addCart = (data: any) => {
         let payload = { ...data, qty: 1 };
@@ -24,6 +25,7 @@ export const useCart = () => {
         loading,
         addCart,
         changeQty,
-        resetCart
+        resetCart,
+        deleteCart
     };
 };

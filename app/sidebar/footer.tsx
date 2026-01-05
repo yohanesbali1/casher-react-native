@@ -1,5 +1,6 @@
 import { formatNumber } from "@/helper/format_number";
 import { useCart } from "@/hooks/useCart";
+import { router } from "expo-router";
 import { Pressable, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
@@ -22,7 +23,7 @@ export default function FooterSidebar() {
                     <Text style={{ flex: 1, fontFamily: 'Opensans-ExtraBold', color: '#0f172a', fontSize: 16 }}>TOTAL</Text>
                     <Text style={{ flex: 1, textAlign: 'right', fontFamily: 'Opensans-ExtraBold', fontSize: 30, color: '#137fec' }}>Rp {formatNumber(data?.total ?? 0)}</Text>
                 </View>
-                <Pressable onPress={() => console.log('asd')} style={{ marginTop: 12, backgroundColor: '#137FEC', boxShadow: '0px 1px 5px rgba(170, 209, 248, 0.99)', paddingVertical: 16, borderRadius: 8 }}>
+                <Pressable onPress={() => router.push('/checkout')} style={{ marginTop: 12, backgroundColor: '#137FEC', boxShadow: '0px 1px 5px rgba(170, 209, 248, 0.99)', paddingVertical: 16, borderRadius: 8 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8 }}>
                         <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'Opensans-Bold', fontSize: 18 }}>Proses Payment</Text>
                         <Icon source={'arrow-right'} size={20} color="white" />

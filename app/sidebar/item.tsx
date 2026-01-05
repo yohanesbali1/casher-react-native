@@ -5,29 +5,47 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import { Icon, Text } from "react-native-paper";
 import Reanimated, {
+    interpolate,
     SharedValue,
     useAnimatedStyle,
 } from 'react-native-reanimated';
 
-function RightAction(drag: SharedValue<number>) {
-    const styleAnimation = useAnimatedStyle(() => {
+function RightAction(
+    progress: SharedValue<number>,
+    dragX: SharedValue<number>,
+    product_id: number,
+    deleteCart: (id: number) => Promise<void>,
+) {
+    const animatedStyle = useAnimatedStyle(() => {
+        const translateX = interpolate(
+            progress.value,
+            [0, 1],
+            [30, 0],   // 👉 dari kanan ke kiri
+        );
+
         return {
-            transform: [{ translateX: drag.value + 100 }],
+            transform: [{ translateX }],
+            opacity: progress.value,
         };
     });
-
     return (
-        <Reanimated.View style={styleAnimation}>
-            <View style={{ backgroundColor: '#F68D8E', width: 100, height: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
-                <Icon source={'trash'} size={20} color="white" />
-            </View>
+        <Reanimated.View style={[animatedStyle, {
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+        }]}>
+            <Pressable onPress={() => deleteCart(product_id)}>
+                <View style={{ backgroundColor: '#F68D8E', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', width: 28, height: 28, marginHorizontal: 8, borderRadius: 8 }}>
+                    <Icon source={'delete'} size={15} color="white" />
+                </View>
+            </Pressable>
         </Reanimated.View>
     );
 }
 
 
 export default function ItemSidebar() {
-    const { cart_products: data, changeQty } = useCart()
+    const { cart_products: data, changeQty, deleteCart } = useCart()
     return (
         <>
             <View style={{ paddingHorizontal: 16, flex: 1 }} >
@@ -38,14 +56,15 @@ export default function ItemSidebar() {
                     <Text style={{ textAlign: 'right', color: '#64748b', width: 100, fontFamily: 'Opensans-SemiBold', fontSize: 12 }}>HARGA</Text>
                 </View>
                 <ScrollView style={{ flex: 1 }} >
-                    {data.map((item: any, index: number) => (
+                    {data.length > 0 ? data.map((item: any, index: number) => (
 
                         <GestureHandlerRootView key={index} >
                             <ReanimatedSwipeable
                                 friction={2}
                                 enableTrackpadTwoFingerGesture
-                                rightThreshold={100}
-                                renderRightActions={RightAction}>
+                                renderRightActions={(progress, dragX) =>
+                                    RightAction(progress, dragX, item.product_id, deleteCart)
+                                }>
                                 <View style={{ flexDirection: 'row', paddingVertical: 12 }}>
                                     <View style={{ flex: 1, }}>
                                         <Text style={{ textAlign: 'left', fontSize: 14, fontFamily: 'Opensans-Bold' }} >{item.product_name}</Text>
@@ -94,7 +113,9 @@ export default function ItemSidebar() {
                                 </View>
                             </ReanimatedSwipeable>
                         </GestureHandlerRootView>
-                    ))}
+                    )) : <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 12 }}>
+                        <Text style={{ textAlign: 'center', color: '#64748b', fontFamily: 'Opensans-Medium', fontSize: 14 }}>Keranjang Kosong</Text>
+                    </View>}
                 </ScrollView>
             </View>
         </>
