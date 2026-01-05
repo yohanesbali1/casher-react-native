@@ -6,7 +6,7 @@ const id = Crypto.randomUUID();
 /* =====================
    PRODUCTS
 ===================== */
-export const getProducts = async (
+export const getProductsStore = async (
     limit = 50,
     offset = 0
 ): Promise<Product[]> => {

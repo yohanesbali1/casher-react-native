@@ -5,14 +5,6 @@ import ProductComp from './product';
 import Sidebar from './sidebar';
 
 export default function Main() {
-
-    const data_checkout = [
-        {
-            id: 1,
-            name: "Nasi Goreng Spesial",
-            image: "https://example.com/images/nasi-goreng-spesial.jpg",
-            price: 25000
-        }]
     return (
         <>
             <AppBar />
@@ -20,7 +12,7 @@ export default function Main() {
                 <View style={{ flex: 1 }}>
                     <ProductComp />
                 </View>
-                <Sidebar data_checkout={data_checkout} />
+                <Sidebar />
             </View>
         </>
     );
