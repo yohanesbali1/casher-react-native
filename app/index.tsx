@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import ProductComp from './product';
-import Sidebar from './sidebar';
+import ProductComp from '../screens/product';
+import Sidebar from '../screens/sidebar';
 
 export default function Main() {
     return (

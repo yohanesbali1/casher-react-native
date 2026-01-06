@@ -1,3 +1,4 @@
+import LoadingProgres from "@/components/loading";
 import { useCart } from "@/hooks/useCart";
 import { FlatList, Text, View } from "react-native";
 import { useProduct } from "../../hooks/useProduct";
@@ -5,13 +6,13 @@ import GroupProduct from "./group";
 import ItemProduct from "./item";
 
 export default function ProductComp() {
-    const { GAP, ITEM_WIDTH, product_data, setContainerWidth } = useProduct()
+    const { GAP, ITEM_WIDTH, product_data, category_data, setContainerWidth, onRefresh, loading } = useProduct()
     const { addCart } = useCart()
     return (
         <>
             <View style={{ backgroundColor: '#F6F7F8', flex: 1 }}
                 onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}>
-                <GroupProduct />
+                <GroupProduct category_data={category_data} />
                 <FlatList
                     data={[...product_data]}
                     numColumns={4}
@@ -25,6 +26,7 @@ export default function ProductComp() {
                         alignItems: "flex-start",
                         flexGrow: 1
                     }}
+                    onRefresh={onRefresh}
                     ListEmptyComponent={
                         <View
                             style={{
@@ -41,6 +43,7 @@ export default function ProductComp() {
                     )}
                 />
             </View>
+            <LoadingProgres visible={loading} />
         </>
     )
 }

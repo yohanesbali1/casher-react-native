@@ -14,13 +14,13 @@ export const seedIfEmpty = async () => {
 
     // === CATEGORIES ===
     await db.runAsync(
-        "INSERT OR IGNORE INTO categories (id, name) VALUES (?, ?)",
-        [FOOD_ID, "Makanan"]
+        "INSERT OR IGNORE INTO categories (id, name, icon) VALUES (?, ?, ?)",
+        [FOOD_ID, "Makanan", "food-turkey"]
     );
 
     await db.runAsync(
         "INSERT OR IGNORE INTO categories (id, name) VALUES (?, ?)",
-        [DRINK_ID, "Minuman"]
+        [DRINK_ID, "Minuman", 'coffee']
     );
 
     const products = [

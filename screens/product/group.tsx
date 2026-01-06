@@ -10,33 +10,20 @@ export function ItemGroup(payload: any) {
                     flexDirection: 'row', gap: 6, backgroundColor: '#F1F5F9', paddingVertical: 5, paddingHorizontal: 16, borderRadius: 8, marginEnd: 10
                 }}>
                     <Icon source={item.icon} size={20} color="#334155" />
-                    <Text style={{ fontFamily: 'Opensans-Medium', color: '#334155', fontSize: 14 }}>{item.title}</Text>
+                    <Text style={{ fontFamily: 'Opensans-Medium', color: '#334155', fontSize: 14 }}>{item.name}</Text>
                 </View >
             </Pressable >
         </>
     )
 }
 
-export default function GroupProduct() {
-
-    const group = [{
-        id: 1,
-        title: 'Semua Item',
-        icon: 'home'
-    }, {
-        id: 2,
-        title: 'Makanan',
-        icon: 'food-turkey'
-    }, {
-        id: 3,
-        title: 'Minuman',
-        icon: 'coffee'
-    }]
+export default function GroupProduct(payload: any) {
+    const { category_data } = payload
     return (
         <>
             <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', paddingHorizontal: 14, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' }}>
                 <ScrollView horizontal >
-                    {group.map((item: any) => (
+                    {category_data.map((item: any) => (
                         <ItemGroup key={item.id} item={item} />
                     ))}
                 </ScrollView>

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import AppBar from './app.bar';
+import AppBar from '../components/app.bar';
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({

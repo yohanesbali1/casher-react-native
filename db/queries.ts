@@ -1,7 +1,18 @@
 import * as Crypto from "expo-crypto";
 import { db } from "./database";
-import { Product } from "./types";
+import { Category, Product } from "./types";
 const id = Crypto.randomUUID();
+
+
+/* =====================
+   Categories
+===================== */
+export const getCategoriesStore = async (): Promise<Category[]> => {
+    return await db.getAllAsync<Category>(
+        `SELECT * FROM categories`
+    );
+};
+
 
 /* =====================
    PRODUCTS

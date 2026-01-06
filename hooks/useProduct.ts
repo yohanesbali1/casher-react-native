@@ -7,6 +7,8 @@ export const useProduct = () => {
     const productData = useStore(productStore, s => s.product_data);
     const loading = useStore(productStore, s => s.loading);
     const getProducts = useStore(productStore, s => s.getProducts);
+    const getCategories = useStore(productStore, s => s.getCategories);
+    const category_data = useStore(productStore, s => s.category_data);
 
     const [containerWidth, setContainerWidth] = useState(0);
     const GAP = 16;
@@ -21,17 +23,24 @@ export const useProduct = () => {
 
     useEffect(() => {
         getProducts();
+        getCategories();
     }, []);
 
+    const onRefresh = () => {
+        getProducts();
+        getCategories();
+    };
 
 
 
 
     return {
         product_data: productData,
+        category_data,
         loading,
         ITEM_WIDTH,
         GAP,
-        setContainerWidth
+        setContainerWidth,
+        onRefresh
     };
 };

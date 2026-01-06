@@ -113,7 +113,7 @@ export default function ItemSidebar() {
                                 </View>
                             </ReanimatedSwipeable>
                         </GestureHandlerRootView>
-                    )) : <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 12 }}>
+                    )) : <View style={{ paddingVertical: 12 }}>
                         <Text style={{ textAlign: 'center', color: '#64748b', fontFamily: 'Opensans-Medium', fontSize: 14 }}>Keranjang Kosong</Text>
                     </View>}
                 </ScrollView>
