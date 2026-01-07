@@ -31,7 +31,7 @@ export const seedIfEmpty = async () => {
     );
 
     await db.runAsync(
-        "INSERT OR IGNORE INTO categories (id, name) VALUES (?, ?)",
+        "INSERT OR IGNORE INTO categories (id, name, icon) VALUES (?, ?, ?)",
         [DRINK_ID, "Minuman", 'coffee']
     );
 

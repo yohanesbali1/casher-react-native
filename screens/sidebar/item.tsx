@@ -22,7 +22,7 @@ function RightAction(
         const translateX = interpolate(
             progress.value,
             [0, 1],
-            [30, 0],   // 👉 dari kanan ke kiri
+            [30, 0],
         );
 
         return {
@@ -60,10 +60,9 @@ export default function ItemSidebar() {
                     <Text style={{ textAlign: 'right', color: '#64748b', width: 100, fontFamily: 'Opensans-SemiBold', fontSize: 12 }}>HARGA</Text>
                 </View>
                 <ScrollView style={{ flex: 1 }} >
-                    {data.length > 0 ? data.map((item: any, index: number) => (
-
-                        <GestureHandlerRootView key={index} >
-                            <ReanimatedSwipeable
+                    <GestureHandlerRootView >
+                        {data.length > 0 ? data.map((item: any, index: number) => (
+                            <ReanimatedSwipeable key={item.product_id}
                                 friction={2}
                                 enableTrackpadTwoFingerGesture
                                 renderRightActions={(progress, dragX) =>
@@ -116,10 +115,10 @@ export default function ItemSidebar() {
                                     </View>
                                 </View>
                             </ReanimatedSwipeable>
-                        </GestureHandlerRootView>
-                    )) : <View style={{ paddingVertical: 12 }}>
-                        <Text style={{ textAlign: 'center', color: '#64748b', fontFamily: 'Opensans-Medium', fontSize: 14 }}>Keranjang Kosong</Text>
-                    </View>}
+                        )) : <View style={{ paddingVertical: 12 }}>
+                            <Text style={{ textAlign: 'center', color: '#64748b', fontFamily: 'Opensans-Medium', fontSize: 14 }}>Keranjang Kosong</Text>
+                        </View>}
+                    </GestureHandlerRootView>
                 </ScrollView>
             </View>
         </>

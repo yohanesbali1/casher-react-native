@@ -18,11 +18,12 @@ export const getCategoriesStore = async (): Promise<Category[]> => {
    PRODUCTS
 ===================== */
 export const getProductsStore = async (
+    category_id?: string,
     limit = 50,
-    offset = 0
+    offset = 0,
 ): Promise<Product[]> => {
-    return await db.getAllAsync<Product>(
-        `
+
+    let query = `
     SELECT
       products.id   AS product_id,
       products.name AS product_name,
@@ -33,12 +34,20 @@ export const getProductsStore = async (
     FROM products
     INNER JOIN categories
       ON products.category_id = categories.id
-    LIMIT ? OFFSET ?
-    `,
-        [limit, offset]
-    );
-};
+  `;
 
+    const params: any[] = [];
+
+    if (category_id && category_id !== 'ALL') {
+        query += ` WHERE category_id = ?`;
+        params.push(category_id);
+    }
+
+    query += ` LIMIT ? OFFSET ?`;
+    params.push(limit, offset);
+
+    return await db.getAllAsync<Product>(query, params);
+};
 /* =====================
    TRANSACTION
 ===================== */

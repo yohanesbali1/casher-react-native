@@ -1,5 +1,4 @@
 import { productStore } from "@/store/product/product.store";
-import { useEffect } from "react";
 import { useStore } from "zustand";
 
 export const useProduct = () => {
@@ -7,21 +6,18 @@ export const useProduct = () => {
     const product_data = useStore(productStore, s => s.product_data);
     const loading = useStore(productStore, s => s.loading);
     const getProducts = useStore(productStore, s => s.getProducts);
-
-
-
-    useEffect(() => {
-        getProducts();
-        console.log('coba ini Produk')
-    }, []);
-
     const onRefresh = async () => {
         await getProducts();
+    };
+    const changeCategoryProduct = async (category_id: string) => {
+        await getProducts(category_id);
     };
 
     return {
         product_data,
         loading,
+        getProducts,
+        changeCategoryProduct,
         onRefresh
     };
 };

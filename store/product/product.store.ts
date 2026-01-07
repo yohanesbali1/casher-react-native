@@ -13,7 +13,14 @@ export const productStore = createStore<ProductType>((set, get) => ({
         set({ loading: true });
         try {
             const data = await getCategoriesStore();
-            set({ category_data: data });
+            data.push({ id: 'ALL', name: "Semua Makanan", icon: "food" });
+            set({
+                category_data: data.sort((a, b) => {
+                    if (a.id === 'ALL') return -1;
+                    if (b.id === 'ALL') return 1;
+                    return Number(a.id) - Number(b.id);
+                }),
+            });
         } catch (err: any) {
             set({
                 category_data: [],
@@ -24,10 +31,10 @@ export const productStore = createStore<ProductType>((set, get) => ({
             set({ loading: false });
         }
     },
-    getProducts: async () => {
+    getProducts: async (category_id?: string) => {
         set({ loading: true });
         try {
-            const data = await getProductsStore();
+            const data = await getProductsStore(category_id);
             set({ product_data: data });
         } catch (err: any) {
             set({

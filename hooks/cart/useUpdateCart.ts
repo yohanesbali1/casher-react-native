@@ -5,15 +5,15 @@ import { useStore } from "zustand";
 export const useUpdateCart = () => {
     const cart_products = useStore(
         cartStore,
-        s => s.cart_data?.product ?? []
+        s => s.cart_data?.product
     );
     const updateCart = useStore(cartStore, s => s.updateCart);
     const changeQty = async (id: number, qty: number) => {
-        const product = cart_products.find(p => p.product_id === id);
+        const product = cart_products?.find(p => p.product_id === id);
         if (!product) {
             throw new Error("Produk tidak ditemukan di cart");
         }
-        const validation = validateUpdateQty(qty);
+        const validation = validateUpdateQty(product.qty);
         if (!validation.valid) {
             throw new Error(validation.message);
         }

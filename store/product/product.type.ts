@@ -4,13 +4,14 @@ export interface ProductType {
     loading: boolean;
     error: string | null;
 
-    getProducts: () => Promise<void>;
+    getProducts: (category_id?: string) => Promise<void>;
     getCategories: () => Promise<void>;
 }
 
 export interface Category {
     id: string;
     name: string;
+    icon: string;
 }
 export interface Product {
     product_id: string;
