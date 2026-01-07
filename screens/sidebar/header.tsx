@@ -1,9 +1,9 @@
-import { useCart } from "@/hooks/useCart";
+import { useResetCart } from "@/hooks/cart/useResetCart";
 import { Pressable, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 export default function HeaderSidebar() {
-    const { resetCart } = useCart()
+    const { resetCart } = useResetCart()
     return (
         <>
             <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#E0E0E0' }}>

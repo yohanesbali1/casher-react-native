@@ -1,12 +1,28 @@
 import { formatNumber } from "@/helper/format_number";
-import { Pressable, View } from "react-native";
+import { useAddCart } from "@/hooks/cart/useAddCart";
+import { CartProduct } from "@/store/cart/cart.type";
+import { Pressable, ToastAndroid, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 export default function ItemProduct(payload: any) {
-    const { item, ITEM_WIDTH, addCart } = payload;
+    const { item, ITEM_WIDTH } = payload;
+    const { addCart } = useAddCart()
+    const AddCartItem = async (product: CartProduct) => {
+        try {
+            await addCart(product);
+        } catch (error) {
+            ToastAndroid.showWithGravityAndOffset(
+                "Transaksi berhasil",
+                ToastAndroid.SHORT,
+                ToastAndroid.TOP,
+                0,
+                120
+            );
+        }
+    }
     return (
         <>
-            <Pressable onPress={() => addCart(item)} >
+            <Pressable onPress={() => AddCartItem(item)} >
                 <View style={{
                     width: ITEM_WIDTH,
                     backgroundColor: "white",

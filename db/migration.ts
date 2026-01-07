@@ -21,8 +21,7 @@ export const migrate = async () => {
     CREATE TABLE IF NOT EXISTS transactions (
       id TEXT PRIMARY KEY NOT NULL,
       transaction_number TEXT,
-      customer_name TEXT,
-      items TEXT,          
+      customer_name TEXT, 
       sub_total REAL,      
       tax REAL,           
       total REAL,         
@@ -32,13 +31,10 @@ export const migrate = async () => {
     CREATE TABLE IF NOT EXISTS transaction_items (
       id TEXT PRIMARY KEY NOT NULL,
       transaction_id TEXT NOT NULL,
-      product_id TEXT,
       product_name TEXT NOT NULL,
       price REAL NOT NULL,
       quantity INTEGER NOT NULL,
-      subtotal REAL NOT NULL,
-      FOREIGN KEY (transaction_id) REFERENCES transactions(id),
-      FOREIGN KEY (product_id) REFERENCES products(id)
+      FOREIGN KEY (transaction_id) REFERENCES transactions(id)
   );
 
     CREATE TABLE IF NOT EXISTS logs (
@@ -47,6 +43,11 @@ export const migrate = async () => {
       created_at TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS transaction_sequence (
+      id INTEGER PRIMARY KEY,
+      last_number INTEGER
+    );
+    
     CREATE INDEX IF NOT EXISTS idx_transaction_items_transaction
       ON transaction_items(transaction_id);
 

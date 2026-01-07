@@ -1,11 +1,11 @@
 import { formatNumber } from "@/helper/format_number";
-import { useCart } from "@/hooks/useCart";
+import { useCartData } from "@/hooks/cart/useCartData";
 import { router } from "expo-router";
 import { Pressable, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 export default function FooterSidebar() {
-    const { cart_data: data } = useCart()
+    const { cart_data: data } = useCartData()
     return (
         <>
             <View style={{ paddingHorizontal: 16, paddingVertical: 12, backgroundColor: "#f8fafc", borderTopWidth: 1, borderTopColor: '#e2e8f0', gap: 8 }}>

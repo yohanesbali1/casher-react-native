@@ -2,17 +2,29 @@ import * as Crypto from "expo-crypto";
 import { db } from "./database";
 
 export const seedIfEmpty = async () => {
+
+    //=== TRANSACTION SEQUENCE ===
+    const seq = await db.getFirstAsync<{ count: number }>(
+        "SELECT COUNT(*) as count FROM transaction_sequence WHERE id = 1"
+    );
+
+    if (!seq || seq.count === 0) {
+        // insert default row
+        await db.runAsync(
+            "INSERT INTO transaction_sequence (id, last_number) VALUES (1, 0)"
+        );
+    }
+
     const res = await db.getAllAsync<{ count: number }>(
         "SELECT COUNT(*) as count FROM products"
     );
 
     if (res[0].count > 0) return;
 
-    // 🔥 ID STATIS untuk master data
     const FOOD_ID = "FOOD";
     const DRINK_ID = "DRINK";
 
-    // === CATEGORIES ===
+    //=== CATEGORIES ===
     await db.runAsync(
         "INSERT OR IGNORE INTO categories (id, name, icon) VALUES (?, ?, ?)",
         [FOOD_ID, "Makanan", "food-turkey"]

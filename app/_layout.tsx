@@ -2,13 +2,15 @@ import { migrate } from '@/db/migration';
 import { seedIfEmpty } from '@/db/seed';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import AppBar from '../components/app.bar';
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
+  const [dbReady, setDbReady] = useState(false);
+
   const [loaded, error] = useFonts({
     'Opensans-ExtraBold': require('../assets/fonts/OpenSans-ExtraBold.ttf'),
     'Opensans-Bold': require('../assets/fonts/OpenSans-Bold.ttf'),
@@ -19,21 +21,21 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
-
-  useEffect(() => {
     (async () => {
       await migrate();
       await seedIfEmpty();
+      setDbReady(true);
     })();
   }, []);
 
-  if (!loaded && !error) {
-    return null;
-  }
+  useEffect(() => {
+    if ((loaded || error) && dbReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error, dbReady]);
+
+  if (!loaded && !error) return null;
+  if (!dbReady) return null;
   return (
     <SafeAreaProvider>
       <PaperProvider>

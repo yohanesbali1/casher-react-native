@@ -1,3 +1,4 @@
+import { useCategory } from "@/hooks/category/useCategory";
 import { Pressable, ScrollView, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
@@ -17,8 +18,8 @@ export function ItemGroup(payload: any) {
     )
 }
 
-export default function GroupProduct(payload: any) {
-    const { category_data } = payload
+export default function GroupProduct() {
+    const { category_data } = useCategory()
     return (
         <>
             <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', paddingHorizontal: 14, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' }}>

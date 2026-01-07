@@ -1,5 +1,7 @@
 import { formatNumber } from "@/helper/format_number";
-import { useCart } from "@/hooks/useCart";
+import { useCartData } from "@/hooks/cart/useCartData";
+import { useDeleteCart } from "@/hooks/cart/useDeleteCart";
+import { useUpdateCart } from "@/hooks/cart/useUpdateCart";
 import { Pressable, ScrollView, View } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
@@ -45,7 +47,9 @@ function RightAction(
 
 
 export default function ItemSidebar() {
-    const { cart_products: data, changeQty, deleteCart } = useCart()
+    const { cart_products: data } = useCartData()
+    const { changeQty } = useUpdateCart()
+    const { deleteCart } = useDeleteCart()
     return (
         <>
             <View style={{ paddingHorizontal: 16, flex: 1 }} >
