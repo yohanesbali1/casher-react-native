@@ -9,15 +9,12 @@ export const useProduct = () => {
     const onRefresh = async () => {
         await getProducts();
     };
-    const changeCategoryProduct = async (category_id: string) => {
-        await getProducts(category_id);
-    };
+
 
     return {
         product_data,
         loading,
         getProducts,
-        changeCategoryProduct,
         onRefresh
     };
 };

@@ -1,6 +1,6 @@
 
 export const initialState = {
-    loading: true,
+    loading: false,
     error: null,
     transaction_data: [],
     show_transaction_data: undefined,

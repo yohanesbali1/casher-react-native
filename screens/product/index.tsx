@@ -1,9 +1,9 @@
-import LoadingProgres from "@/components/loading";
 import { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { useProduct } from "../../hooks/product/useProduct";
 import GroupProduct from "./group";
 import ItemProduct from "./item";
+import NoItemProduct from "./no_item";
 
 export default function ProductComp() {
     const { product_data, loading, onRefresh } = useProduct()
@@ -27,7 +27,7 @@ export default function ProductComp() {
                 <FlatList
                     data={[...product_data]}
                     numColumns={4}
-                    keyExtractor={item => item.product_id.toString()}
+                    keyExtractor={(item: any) => item.product_id.toString()}
                     columnWrapperStyle={{
                         gap: GAP,
                         justifyContent: "flex-start",
@@ -40,22 +40,13 @@ export default function ProductComp() {
                     onRefresh={onRefresh}
                     refreshing={loading}
                     ListEmptyComponent={
-                        <View
-                            style={{
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Text>Produk kosong</Text>
-                        </View>
+                        <NoItemProduct />
                     }
                     renderItem={({ item }) => (
                         <ItemProduct ITEM_WIDTH={ITEM_WIDTH} item={item} />
                     )}
                 />
             </View>
-            <LoadingProgres visible={loading} />
         </>
     )
 }

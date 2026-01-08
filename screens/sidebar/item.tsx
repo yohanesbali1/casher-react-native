@@ -89,9 +89,11 @@ export default function ItemSidebar() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 borderRadius: 8,
+                                                borderWidth: 1,
+                                                borderColor: '#e5e7eb',
                                             })}
                                         >
-                                            <Icon source={'minus'} size={15} color="#0079EB"></Icon>
+                                            <Icon source={'minus'} size={15} color="#475569"></Icon>
                                         </Pressable>
                                         <Text style={{ textAlign: 'center', fontFamily: 'Opensans-Bold', alignSelf: 'center', fontSize: 14, alignItems: 'center' }}>{item.qty}</Text>
                                         <Pressable

@@ -4,7 +4,7 @@ import { transactionStore } from "@/store/transaction/transaction.store";
 import { useState } from "react";
 import { useStore } from "zustand";
 
-export const useCheckout = () => {
+export const usePostTransaction = () => {
 
     const loading = useStore(transactionStore, s => s.loading);
     const postTransaction = useStore(transactionStore, s => s.postTransaction);
