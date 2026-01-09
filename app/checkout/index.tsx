@@ -29,7 +29,7 @@ export default function Checkout() {
                                     <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'Opensans-Bold', fontSize: 16, marginLeft: 4 }}>Cetak Struk</Text>
                                 </View>
                             </Pressable>
-                            <Pressable onPress={() => router.replace('/')} style={{ flex: 1 }}>
+                            <Pressable onPress={() => router.push('/')} style={{ flex: 1 }}>
                                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', backgroundColor: 'white', padding: 16, borderRadius: 8, alignItems: 'center', borderWidth: 1, borderColor: '#dbe0e6' }}>
                                     <Icon source={'plus'} size={20} color="#111418"></Icon>
                                     <Text style={{ textAlign: 'center', color: '#111418', fontFamily: 'Opensans-Bold', fontSize: 16, marginLeft: 4 }}>Transaksi Baru</Text>

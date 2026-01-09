@@ -1,5 +1,4 @@
 import { randomCustomerName, validateTransaction } from "@/logic/transaction/transaction.logic";
-import { cartStore } from "@/store/cart/cart.store";
 import { transactionStore } from "@/store/transaction/transaction.store";
 import { useStore } from "zustand";
 
@@ -7,9 +6,6 @@ export const usePostTransaction = () => {
 
     const loading = useStore(transactionStore, s => s.loading);
     const postTransaction = useStore(transactionStore, s => s.postTransaction);
-
-    const cart_data = useStore(cartStore, s => s.cart_data);
-    const resetCart = useStore(cartStore, s => s.resetCart);
 
     const porcessPayment = async () => {
         if (!cart_data) {

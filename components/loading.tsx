@@ -3,6 +3,7 @@ import { ActivityIndicator } from "react-native-paper";
 
 export default function LoadingProgres(payload: any) {
     const { visible } = payload
+
     return (
         <Modal
             transparent
