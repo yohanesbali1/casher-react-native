@@ -1,5 +1,5 @@
+import { generateTrxNumber } from "@/helper/generate_num_transaction";
 import { Transaction, TransactionItem } from "@/store/transaction/transaction.type";
-import * as Crypto from "expo-crypto";
 import { db } from "./database";
 import { Category, Product } from "./types";
 
@@ -18,7 +18,7 @@ export const getCategoriesStore = async (): Promise<Category[]> => {
    PRODUCTS
 ===================== */
 export const getProductsStore = async (
-    category_id?: string,
+    category_id?: number,
     limit = 50,
     offset = 0,
 ): Promise<Product[]> => {
@@ -38,7 +38,7 @@ export const getProductsStore = async (
 
     const params: any[] = [];
 
-    if (category_id && category_id !== 'ALL') {
+    if (category_id && category_id !== 0) {
         query += ` WHERE category_id = ?`;
         params.push(category_id);
     }
@@ -54,50 +54,53 @@ export const getProductsStore = async (
 export async function createTransaction(
     data: Transaction
 ) {
-    const id = Crypto.randomUUID();
-    const trx_detail_id = Crypto.randomUUID();
     if (!data.product.length) {
         throw new Error("Item transaksi kosong");
     }
-
-    const trxId = id;
     const createdAt = new Date().toISOString();
 
     await db.execAsync("BEGIN TRANSACTION");
 
     try {
-        const seq = await db.getFirstAsync<{
-            last_number: number;
-        }>("SELECT last_number FROM transaction_sequence WHERE id = 1");
+        // const seq = await db.getFirstAsync<{
+        //     last_number: number;
+        // }>("SELECT last_number FROM transaction_sequence WHERE id = 1");
 
-        const nextNumber = (seq?.last_number ?? 0) + 1;
-        const trxNumber = `TRX-${String(nextNumber).padStart(6, "0")}`;
+        // const nextNumber = (seq?.last_number ?? 0) + 1;
+        // const trxNumber = `TRX-${String(nextNumber).padStart(6, "0")}`;
 
-        await db.runAsync(
-            "UPDATE transaction_sequence SET last_number = ? WHERE id = 1",
-            [nextNumber]
-        );
+        // await db.runAsync(
+        //     "UPDATE transaction_sequence SET last_number = ? WHERE id = 1",
+        //     [nextNumber]
+        // );
 
-        await db.runAsync(
+
+        const transacton = await db.runAsync(
             `
       INSERT INTO transactions (
-        id,
-        transaction_number,
         customer_name,
         sub_total,
         tax,
         total,
         created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+      ) VALUES ( ?, ?, ?, ?, ?)
       `,
-            [trxId, trxNumber, data.customer_name, data.sub_total, data.tax, data.total, createdAt]
+            [data.customer_name, data.sub_total, data.tax, data.total, createdAt]
+        );
+
+        const trxNumber = generateTrxNumber(transacton.lastInsertRowId);
+        await db.runAsync(
+            `UPDATE transactions SET transaction_number = ?
+  WHERE id = ?
+  `,
+            [trxNumber, transacton.lastInsertRowId]
         );
         for (const item of data.product) {
             const product = await db.getFirstAsync<{
                 name: string;
             }>(
                 "SELECT name FROM products WHERE id = ?",
-                [item?.product_id as string]
+                [item?.product_id as number]
             );
 
             if (!product) {
@@ -107,16 +110,14 @@ export async function createTransaction(
             await db.runAsync(
                 `
         INSERT INTO transaction_items (
-          id,
           transaction_id,
           product_name,
           price,
           quantity
-        ) VALUES (?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?)
         `,
                 [
-                    trx_detail_id,
-                    trxId,
+                    transacton.lastInsertRowId,
                     product.name,
                     item.price,
                     item.quantity,
@@ -125,12 +126,12 @@ export async function createTransaction(
 
             await db.runAsync(
                 "UPDATE products SET stock = stock - ? WHERE id = ?",
-                [item.quantity, item?.product_id as string]
+                [item.quantity, item?.product_id as number]
             );
         }
 
         await db.execAsync("COMMIT");
-        return { transaction_id: trxId, transaction_number: trxNumber };
+        return { transaction_id: transacton.lastInsertRowId, transaction_number: trxNumber };
     } catch (err) {
         await db.execAsync("ROLLBACK");
         throw err;

@@ -1,3 +1,4 @@
+import { CartProduct } from "@/store/cart/cart.type";
 import { TransactionItem } from "./transaction.types";
 
 //Validate Transaction
@@ -5,7 +6,7 @@ type ValidationResult =
     | { valid: true }
     | { valid: false; message: string };
 
-export function validateTransaction(items: TransactionItem[]): ValidationResult {
+export function validateTransaction(items: CartProduct[]): ValidationResult {
     if (!items || items.length === 0) {
         return { valid: false, message: "Item transaksi tidak boleh kosong" };
     }

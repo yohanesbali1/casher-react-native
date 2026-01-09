@@ -75,15 +75,15 @@ export default function ItemSidebar() {
                                     </View>
                                     <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center' }}>
                                         <Pressable
-                                            disabled={item.qty <= 1}
+                                            disabled={item.quantity <= 1}
                                             onPress={() => changeQty(item.product_id, -1)}
                                             style={(state) => ({
                                                 backgroundColor: state.pressed
                                                     ? '#E2E8F0'
-                                                    : item.qty <= 1
+                                                    : item.quantity <= 1
                                                         ? '#E5E7EB'
                                                         : '#F1F5F9',
-                                                opacity: item.qty <= 1 ? 0.5 : 1,
+                                                opacity: item.quantity <= 1 ? 0.5 : 1,
                                                 width: 28,
                                                 height: 28,
                                                 justifyContent: 'center',
@@ -95,13 +95,13 @@ export default function ItemSidebar() {
                                         >
                                             <Icon source={'minus'} size={15} color="#475569"></Icon>
                                         </Pressable>
-                                        <Text style={{ textAlign: 'center', fontFamily: 'Opensans-Bold', alignSelf: 'center', fontSize: 14, alignItems: 'center' }}>{item.qty}</Text>
+                                        <Text style={{ textAlign: 'center', fontFamily: 'Opensans-Bold', alignSelf: 'center', fontSize: 14, alignItems: 'center' }}>{item.quantity}</Text>
                                         <Pressable
-                                            disabled={item.qty >= 99}
+                                            disabled={item.quantity >= 99}
                                             onPress={() => changeQty(item.product_id, 1)}
                                             style={{
-                                                backgroundColor: item.qty >= 99 ? '#93C5FD' : '#0079EB',
-                                                opacity: item.qty >= 99 ? 0.6 : 1,
+                                                backgroundColor: item.quantity >= 99 ? '#93C5FD' : '#0079EB',
+                                                opacity: item.quantity >= 99 ? 0.6 : 1,
                                                 width: 28,
                                                 height: 28,
                                                 justifyContent: 'center',
@@ -113,7 +113,7 @@ export default function ItemSidebar() {
                                         </Pressable>
                                     </View>
                                     <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center' }}>
-                                        <Text style={{ textAlign: 'right', flex: 1, fontFamily: 'Opensans-Bold', fontSize: 14 }}>Rp {formatNumber(item.price * item.qty)}</Text>
+                                        <Text style={{ textAlign: 'right', flex: 1, fontFamily: 'Opensans-Bold', fontSize: 14 }}>Rp {formatNumber(item.price * item.quantity)}</Text>
                                     </View>
                                 </View>
                             </ReanimatedSwipeable>

@@ -5,13 +5,13 @@ export const migrate = async () => {
     PRAGMA journal_mode = WAL;
 
     CREATE TABLE IF NOT EXISTS categories (
-      id TEXT PRIMARY KEY NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       icon TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS products (
-      id TEXT PRIMARY KEY NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       price REAL,
       stock INTEGER,
@@ -19,8 +19,8 @@ export const migrate = async () => {
     );
 
     CREATE TABLE IF NOT EXISTS transactions (
-      id TEXT PRIMARY KEY NOT NULL,
-      transaction_number TEXT,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      transaction_number TEXT NOT NULL UNIQUE,
       customer_name TEXT, 
       sub_total REAL,      
       tax REAL,           
@@ -29,7 +29,7 @@ export const migrate = async () => {
     );
 
     CREATE TABLE IF NOT EXISTS transaction_items (
-      id TEXT PRIMARY KEY NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       transaction_id TEXT NOT NULL,
       product_name TEXT NOT NULL,
       price REAL NOT NULL,
@@ -38,13 +38,13 @@ export const migrate = async () => {
   );
 
     CREATE TABLE IF NOT EXISTS logs (
-      id TEXT PRIMARY KEY NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       message TEXT,
       created_at TEXT
     );
 
     CREATE TABLE IF NOT EXISTS transaction_sequence (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       last_number INTEGER
     );
     

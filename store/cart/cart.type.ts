@@ -4,7 +4,7 @@ export interface CartState {
     error: string | null;
 
     postCart: (data: CartProduct) => Promise<void>;
-    updateCart: (id: number, qty: number) => Promise<void>;
+    updateCart: (id: number, quantity: number) => Promise<void>;
     deleteCart: (id: number) => Promise<void>;
     resetCart: () => Promise<void>;
 
@@ -14,7 +14,7 @@ export interface CartState {
 export interface CartProduct {
     product_id: number;
     product_name: string;
-    qty: number;
+    quantity: number;
     price: number;
 }
 

@@ -1,4 +1,3 @@
-import * as Crypto from "expo-crypto";
 import { db } from "./database";
 
 export const seedIfEmpty = async () => {
@@ -21,8 +20,8 @@ export const seedIfEmpty = async () => {
 
     if (res[0].count > 0) return;
 
-    const FOOD_ID = "FOOD";
-    const DRINK_ID = "DRINK";
+    const FOOD_ID = 1;
+    const DRINK_ID = 2;
 
     //=== CATEGORIES ===
     await db.runAsync(
@@ -63,9 +62,8 @@ export const seedIfEmpty = async () => {
 
     for (const p of products) {
         await db.runAsync(
-            "INSERT INTO products (id, name, price, stock, category_id) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO products ( name, price, stock, category_id) VALUES ( ?, ?, ?, ?)",
             [
-                Crypto.randomUUID(),
                 p.name,
                 p.price,
                 p.stock,

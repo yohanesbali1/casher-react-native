@@ -4,22 +4,15 @@ import { createStore } from "zustand";
 import { initialState } from "./product.state";
 import { ProductType } from "./product.type";
 
-
-
-
 export const productStore = createStore<ProductType>((set, get) => ({
     ...initialState,
     getCategories: async () => {
         set({ loading: true });
         try {
             const data = await getCategoriesStore();
-            data.push({ id: 'ALL', name: "Semua Makanan", icon: "food" });
+            data.push({ id: 0, name: "Semua Makanan", icon: "food" });
             set({
-                category_data: data.sort((a, b) => {
-                    if (a.id === 'ALL') return -1;
-                    if (b.id === 'ALL') return 1;
-                    return Number(a.id) - Number(b.id);
-                }),
+                category_data: data.sort((a, b) => a.id - b.id),
             });
         } catch (err: any) {
             set({
@@ -31,7 +24,7 @@ export const productStore = createStore<ProductType>((set, get) => ({
             set({ loading: false });
         }
     },
-    getProducts: async (category_id?: string) => {
+    getProducts: async (category_id?: number) => {
         set({ loading: true });
         try {
             const data = await getProductsStore(category_id);

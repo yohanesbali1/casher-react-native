@@ -1,11 +1,11 @@
 export interface Category {
-    id: string;
+    id: number;
     name: string;
     icon: string;
 }
 
 export interface Product {
-    product_id: string;
+    product_id: number;
     product_name: string;
     price: number;
     stock: number;
@@ -14,7 +14,7 @@ export interface Product {
 }
 
 export interface Transaction {
-    id: string;
+    id: number;
     transaction_number: string;
     customer_name: string;
     total: number;

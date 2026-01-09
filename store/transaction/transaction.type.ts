@@ -11,14 +11,14 @@ export interface TransactionState {
 }
 
 export type TransactionItem = {
-    product_id?: string;
+    product_id?: number;
     product_name: string;
     price: number;
     quantity: number;
 };
 
 export interface Transaction {
-    id?: string;
+    id?: number;
     transaction_number?: string;
     customer_name: string;
     product: TransactionItem[];

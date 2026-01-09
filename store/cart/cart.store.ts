@@ -14,7 +14,7 @@ export const cartStore = createStore<CartState>((set, get) => ({
             const payload = {
                 product_id: data.product_id,
                 product_name: data.product_name,
-                qty: data.qty,
+                quantity: data.quantity,
                 price: data.price
             };
             const products = get().cart_data?.product ?? [];
@@ -25,7 +25,7 @@ export const cartStore = createStore<CartState>((set, get) => ({
                 index !== -1
                     ? products.map((item: any, i: number) =>
                         i === index
-                            ? { ...item, qty: item.qty + payload.qty }
+                            ? { ...item, quantity: item.quantity + payload.quantity }
                             : item
                     )
                     : [...products, payload];
@@ -37,12 +37,12 @@ export const cartStore = createStore<CartState>((set, get) => ({
             set({ loading: false });
         }
     },
-    updateCart: async (id: number, qty: number) => {
+    updateCart: async (id: number, quantity: number) => {
         set({ loading: true, });
         try {
             const products = get().cart_data?.product ?? [];
             const updatedProducts = products.map((item: any) => {
-                return item.product_id === id ? { ...item, qty: Math.min(99, Math.max(1, item.qty + qty)) } : item
+                return item.product_id === id ? { ...item, quantity: Math.min(99, Math.max(1, item.quantity + quantity)) } : item
             });
 
             const { sub_total, tax, total } = calculateSummary(updatedProducts);
@@ -53,7 +53,7 @@ export const cartStore = createStore<CartState>((set, get) => ({
             set({ loading: false });
         }
     },
-    deleteCart: async (id) => {
+    deleteCart: async (id: number) => {
         set({ loading: true, error: undefined });
 
         try {

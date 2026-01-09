@@ -23,7 +23,7 @@ export function ItemGroup(payload: any) {
                     <Text style={{ fontFamily: select_category == item.id ? 'Opensans-Bold' : 'Opensans-Medium', color: select_category == item.id ? 'white' : '#334155', fontSize: 14 }}>{item.name}</Text>
                 </View >
             </Pressable >
-            {item.id == 'ALL' &&
+            {item.id == 0 &&
                 <View style={{
                     width: 1,
                     alignItems: 'center',
@@ -39,8 +39,8 @@ export function ItemGroup(payload: any) {
 export default function GroupProduct() {
     const { category_data } = useCategory()
     const { getProducts } = useProduct();
-    const [select_category, setSelectCategory] = useState('All');
-    const changeCategoryProduct = async (category_id: string) => {
+    const [select_category, setSelectCategory] = useState<number>(0);
+    const changeCategoryProduct = async (category_id: number) => {
         setSelectCategory(category_id);
         await getProducts(category_id);
     };

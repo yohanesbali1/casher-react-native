@@ -4,17 +4,17 @@ export interface ProductType {
     loading: boolean;
     error: string | null;
 
-    getProducts: (category_id?: string) => Promise<void>;
+    getProducts: (category_id?: number) => Promise<void>;
     getCategories: () => Promise<void>;
 }
 
 export interface Category {
-    id: string;
+    id: number;
     name: string;
     icon: string;
 }
 export interface Product {
-    product_id: string;
+    product_id: number;
     product_name: string;
     price: number;
     stock: number;

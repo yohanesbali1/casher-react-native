@@ -13,14 +13,14 @@ export function validateAddCart(
 export function buildAddCartPayload(product: CartProduct) {
     return {
         ...product,
-        qty: 1,
+        quantity: 1,
     };
 }
 
 export function validateUpdateQty(
-    qty: number
+    quantity: number
 ) {
-    if (qty < 1) {
+    if (quantity < 1) {
         return { valid: false, message: "Qty minimal 1" };
     }
 
