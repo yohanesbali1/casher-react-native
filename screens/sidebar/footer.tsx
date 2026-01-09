@@ -8,7 +8,7 @@ import { Icon, Text } from "react-native-paper";
 
 export default function FooterSidebar() {
     const { cart_data: data } = useCartData()
-    const { porcessPayment, loading } = usePostTransaction()
+    const { processPayment, loading } = usePostTransaction()
     const [busy, setBusy] = useState(false)
 
     const isCartEmpty = !data || !data.product || data.product.length === 0
@@ -17,11 +17,16 @@ export default function FooterSidebar() {
     const submitPayment = async () => {
         try {
             setBusy(true);
-            await porcessPayment();
-            router.push('/checkout');
+            const response = await processPayment();
+            router.push({
+                pathname: '/checkout',
+                params: {
+                    id: response?.transaction_id
+                }
+            });
         } catch (err: any) {
             ToastAndroid.showWithGravity(
-                err.message,
+                err,
                 ToastAndroid.SHORT,
                 ToastAndroid.TOP,
             );

@@ -153,7 +153,7 @@ export async function getTransaction(): Promise<Transaction[]> {
     );
 }
 
-export async function getTransactionById(id: string): Promise<Transaction> {
+export async function getTransactionById(id: number): Promise<Transaction> {
     const data = await db.getFirstAsync<Omit<Transaction, "product">>(
         `
     SELECT

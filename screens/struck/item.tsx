@@ -14,7 +14,7 @@ export default function ItemStruck(payload: any) {
                     <Text style={{ textAlign: 'center', color: '#617589', width: 100, fontFamily: 'Opensans-SemiBold', fontSize: 12 }}>HARGA</Text>
                     <Text style={{ textAlign: 'right', color: '#617589', width: 100, fontFamily: 'Opensans-SemiBold', fontSize: 12 }}>TOTAL</Text>
                 </View>
-                {data && data.items.length > 0 ? data.items.map((item: any, index: number) => (
+                {data && data.product.length > 0 ? data.product.map((item: any, index: number) => (
                     <View key={index} style={{ flexDirection: 'row', paddingVertical: 5 }}>
                         <View style={{ flex: 1, }}>
                             <Text style={{ textAlign: 'left', fontSize: 14, fontFamily: 'Opensans-Medium', color: '#111418' }} >{item.product_name}</Text>
@@ -26,7 +26,7 @@ export default function ItemStruck(payload: any) {
                             <Text style={{ textAlign: 'center', fontSize: 12, color: '#617589', fontFamily: 'Opensans-Regular' }}>{formatNumber(item.price)}</Text>
                         </View>
                         <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center' }}>
-                            <Text style={{ textAlign: 'right', flex: 1, color: '#111418', fontFamily: 'Opensans-Medium', fontSize: 14 }}>{formatNumber(item.subtotal)}</Text>
+                            <Text style={{ textAlign: 'right', flex: 1, color: '#111418', fontFamily: 'Opensans-Medium', fontSize: 14 }}>{formatNumber(item.price * item.quantity)}</Text>
                         </View>
                     </View>
                 )) : <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 12 }}>

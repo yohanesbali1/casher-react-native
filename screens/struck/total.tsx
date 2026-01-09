@@ -9,7 +9,7 @@ export default function TotalStruck(payload: any) {
             <View style={{ paddingTop: 16 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4 }}>
                     <Text style={{ fontFamily: 'Opensans-Bold', color: '#111418', fontSize: 16 }}>TOTAL</Text>
-                    <Text style={{ fontFamily: 'Opensans-Bold', color: '#137fec', fontSize: 20 }}>Rp {formatNumber(data.sub_total)}</Text>
+                    <Text style={{ fontFamily: 'Opensans-Bold', color: '#137fec', fontSize: 20 }}>Rp {formatNumber(data.total)}</Text>
                 </View>
             </View>
         </>

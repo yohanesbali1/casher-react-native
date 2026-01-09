@@ -20,7 +20,7 @@ export const migrate = async () => {
 
     CREATE TABLE IF NOT EXISTS transactions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      transaction_number TEXT NOT NULL UNIQUE,
+      transaction_number TEXT NULL UNIQUE,
       customer_name TEXT, 
       sub_total REAL,      
       tax REAL,           

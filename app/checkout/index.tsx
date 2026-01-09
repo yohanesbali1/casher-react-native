@@ -1,17 +1,41 @@
-import { UseStruck } from "@/hooks/useStruck";
+import { useShowTransaction } from "@/hooks/transaction/useShowTransaction";
 import ItemStruck from "@/screens/struck/item";
 import StoreStruck from "@/screens/struck/store";
 import SumItemStruck from "@/screens/struck/sum_item";
 import TitleStruck from "@/screens/struck/title";
 import TotalStruck from "@/screens/struck/total";
-import { router } from "expo-router";
-import { Pressable, ScrollView, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { Pressable, RefreshControl, ScrollView, ToastAndroid, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 export default function Checkout() {
-    const { struct_data: data } = UseStruck()
+    const { id } = useLocalSearchParams()
+    const { showTransaction, show_transaction_data: data } = useShowTransaction()
+    const [busy, setBusy] = useState(false)
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = async () => {
+        try {
+            setBusy(true)
+            await showTransaction(id as unknown as number)
+        } catch (err: any) {
+            ToastAndroid.showWithGravity(err, ToastAndroid.SHORT, ToastAndroid.TOP);
+        } finally {
+            setBusy(false)
+        }
+    }
+
+    if (!data) return null
+
     return (
-        <ScrollView>
+        <ScrollView
+            refreshControl={
+                <RefreshControl refreshing={busy} onRefresh={getData} />
+            }
+        >
             <View style={{ flex: 1, padding: 32, }}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                     <View style={{ flex: 1, maxWidth: 480, gap: 24 }}>
@@ -29,7 +53,7 @@ export default function Checkout() {
                                     <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'Opensans-Bold', fontSize: 16, marginLeft: 4 }}>Cetak Struk</Text>
                                 </View>
                             </Pressable>
-                            <Pressable onPress={() => router.push('/')} style={{ flex: 1 }}>
+                            <Pressable onPress={() => router.back()} style={{ flex: 1 }}>
                                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', backgroundColor: 'white', padding: 16, borderRadius: 8, alignItems: 'center', borderWidth: 1, borderColor: '#dbe0e6' }}>
                                     <Icon source={'plus'} size={20} color="#111418"></Icon>
                                     <Text style={{ textAlign: 'center', color: '#111418', fontFamily: 'Opensans-Bold', fontSize: 16, marginLeft: 4 }}>Transaksi Baru</Text>

@@ -2,7 +2,7 @@ import { migrate } from '@/db/migration';
 import { seedIfEmpty } from '@/db/seed';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -37,15 +37,18 @@ export default function RootLayout() {
   if (!loaded && !error) return null;
   if (!dbReady) return null;
   return (
-    <SafeAreaProvider>
-      <PaperProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <AppBar />
-          <Stack screenOptions={{
-            headerShown: false,
-          }} />
-        </SafeAreaView>
-      </PaperProvider>
-    </SafeAreaProvider>
+
+    < >
+      <SafeAreaProvider>
+        <PaperProvider>
+          <SafeAreaView style={{ flex: 1 }}>
+            <AppBar />
+            <Stack screenOptions={{
+              headerShown: false,
+            }} />
+          </SafeAreaView>
+        </PaperProvider>
+      </SafeAreaProvider>
+    </>
   );
 }

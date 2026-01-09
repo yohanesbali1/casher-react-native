@@ -4,8 +4,11 @@ export interface TransactionState {
     transaction_data: Transaction[];
     show_transaction_data?: Transaction;
 
-    postTransaction: (data: Transaction) => Promise<void>;
-    showTransaction: (id: string) => Promise<void>;
+    postTransaction: (data: Transaction) => Promise<{
+        transaction_id: number;
+        transaction_number: string;
+    } | undefined>;
+    showTransaction: (id: number) => Promise<void>;
 
 
 }
