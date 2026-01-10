@@ -1,87 +1,67 @@
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from 'expo-router';
+import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-paper';
 
-const Drawer = createDrawerNavigator();
+export default function CustomDrawerContent() {
+    const navigation = useNavigation<any>(); // navigation sudah otomatis tersedia
+    const [masterDataOpen, setMasterDataOpen] = useState(false);
 
-// Screen components
-function CategoryScreen() {
     return (
-        <View style={styles.screen}>
-            <Text>Category Screen</Text>
+        <View style={{
+            flex: 1, backgroundColor: '#FFFFFF'
+        }}>
+            <View style={{ flexDirection: 'row', paddingVertical: 32, paddingHorizontal: 24, borderBottomColor: '#f0f2f4', borderBottomWidth: 1 }}>
+                <View style={{ width: 40, height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 8, backgroundColor: 'rgb(19 127 236 / 0.1)' }} >
+                    <Icon source={'store'} size={24} color="#0079EB"></Icon>
+                </View>
+                <View style={{ alignSelf: 'center', marginLeft: 10 }}>
+                    <Text style={{ fontSize: 18, color: '#0f172a', fontWeight: 'bold' }}>Kasir Cepat</Text>
+                </View>
+            </View>
+            <View style={{ gap: 10, paddingHorizontal: 12, paddingVertical: 24 }}>
+                <Pressable
+                    onPress={() => setMasterDataOpen(!masterDataOpen)}
+                    style={styles.menuItem}
+                >
+                    <Text style={styles.menuText}>Master Data</Text>
+                </Pressable>
+
+                {masterDataOpen && (
+                    <View style={{ marginLeft: 20 }}>
+                        <Pressable
+                            onPress={() => navigation.navigate('kategori-produk')}
+                            style={styles.subMenuItem}
+                        >
+                            <Text style={styles.subMenuText}>Kategori Produk</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => navigation.navigate('produk')}
+                            style={styles.subMenuItem}
+                        >
+                            <Text style={styles.subMenuText}>Produk</Text>
+                        </Pressable>
+                    </View>
+                )}
+
+                <Pressable
+                    onPress={() => navigation.navigate('transaksi')}
+                    style={styles.menuItem}
+                >
+
+                    <Text style={styles.menuText}>Transaksi</Text>
+                </Pressable>
+
+            </View>
+
+            {/* Master Data */}
         </View>
-    );
-}
-
-function ProductScreen() {
-    return (
-        <View style={styles.screen}>
-            <Text>Product Screen</Text>
-        </View>
-    );
-}
-
-function TransaksiScreen() {
-    return (
-        <View style={styles.screen}>
-            <Text>Transaksi Screen</Text>
-        </View>
-    );
-}
-
-// Custom drawer content
-function CustomDrawerContent(props: any) {
-    return (
-        <DrawerContentScrollView {...props}>
-            {/* Master Data Header */}
-            <Text style={styles.header}>Master Data</Text>
-            <DrawerItem
-                label="Category"
-                onPress={() => props.navigation.navigate('Category')}
-            />
-            <DrawerItem
-                label="Product"
-                onPress={() => props.navigation.navigate('Product')}
-            />
-
-            {/* Transaksi */}
-            <Text style={styles.header}>Transaksi</Text>
-            <DrawerItem
-                label="Transaksi"
-                onPress={() => props.navigation.navigate('Transaksi')}
-            />
-        </DrawerContentScrollView>
-    );
-}
-
-export default function App() {
-    return (
-        <NavigationContainer>
-            <Drawer.Navigator
-                initialRouteName="Category"
-                drawerContent={(props: any) => <CustomDrawerContent {...props} />}
-            >
-                <Drawer.Screen name="Category" component={CategoryScreen} />
-                <Drawer.Screen name="Product" component={ProductScreen} />
-                <Drawer.Screen name="Transaksi" component={TransaksiScreen} />
-            </Drawer.Navigator>
-        </NavigationContainer>
     );
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    header: {
-        marginLeft: 16,
-        marginTop: 20,
-        marginBottom: 5,
-        fontWeight: 'bold',
-        fontSize: 16,
-        color: '#555',
-    }
+    menuItem: { paddingVertical: 10 },
+    menuText: { fontSize: 16, fontWeight: 'bold' },
+    subMenuItem: { paddingVertical: 8 },
+    subMenuText: { fontSize: 14, color: '#555' },
 });
